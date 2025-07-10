@@ -1,0 +1,155 @@
+import React, { useState, useRef, useEffect } from 'react';
+import ChatMessage from './ChatMessage';
+import ChatInput from './ChatInput';
+import WelcomeScreen from './WelcomeScreen';
+import {
+  RotateCcw,
+  Copy,
+  ArrowDown,
+  ThumbsUp,
+  ThumbsDown,
+  MoreHorizontal,
+} from 'lucide-react';
+import { Button } from '../ui/Button';
+
+const ChatInterface = () => {
+  const [messages, setMessages] = useState([]);
+  const [hasStartedChat, setHasStartedChat] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSendMessage = (messageText) => {
+    if (!hasStartedChat) {
+      setHasStartedChat(true);
+    }
+
+    const newMessage = {
+      id: Date.now().toString(),
+      message: messageText,
+      sender: 'You',
+      timestamp: new Date().toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      }),
+      isCurrentUser: true,
+    };
+
+    setMessages((prev) => [...prev, newMessage]);
+
+    setTimeout(() => {
+      const responses = [
+        "Hey there! What's up?",
+        "That's really interesting! Let me help you with that.",
+        "I understand what you're asking. Here's what I think...",
+        "Great question! Let me break this down for you.",
+        "I can definitely help you with that. Here's my perspective...",
+        "That's a thoughtful question. Based on what you've shared...",
+      ];
+
+      const randomResponse =
+        responses[Math.floor(Math.random() * responses.length)];
+
+      const responseMessage = {
+        id: (Date.now() + 1).toString(),
+        message: randomResponse,
+        sender: 'Grok',
+        timestamp: new Date().toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true,
+        }),
+        isCurrentUser: false,
+      };
+
+      setMessages((prev) => [...prev, responseMessage]);
+    }, 1000 + Math.random() * 1000);
+  };
+
+  const MessageActions = ({ messageId }) => (
+    <div className="flex items-center gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-gray-400 hover:text-gray-300">
+        <RotateCcw className="h-3 w-3" />
+      </Button>
+      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-gray-400 hover:text-gray-300">
+        <Copy className="h-3 w-3" />
+      </Button>
+      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-gray-400 hover:text-gray-300">
+        <ArrowDown className="h-3 w-3" />
+      </Button>
+      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-gray-400 hover:text-gray-300">
+        <ThumbsUp className="h-3 w-3" />
+      </Button>
+      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-gray-400 hover:text-gray-300">
+        <ThumbsDown className="h-3 w-3" />
+      </Button>
+      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-gray-400 hover:text-gray-300">
+        <MoreHorizontal className="h-3 w-3" />
+      </Button>
+      <span className="text-xs text-gray-500 ml-2">1.1s</span>
+    </div>
+  );
+
+  if (!hasStartedChat) {
+    return <WelcomeScreen onSendMessage={handleSendMessage} />;
+  }
+
+  return (
+    <div className="flex flex-col h-screen bg-transparent text-gray-100">
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          {messages.map((message) => (
+            <div key={message.id} className="group mb-8">
+              <div
+                className={`flex items-start gap-4 ${
+                  message.isCurrentUser ? 'flex-row-reverse' : 'flex-row'
+                }`}
+              >
+                <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-sm font-medium">
+                    {message.isCurrentUser ? 'U' : 'G'}
+                  </span>
+                </div>
+                <div
+                  className={`flex-1 min-w-0 ${
+                    message.isCurrentUser ? 'text-right' : 'text-left'
+                  }`}
+                >
+                  <div
+                    className={`text-sm text-gray-400 mb-1 ${
+                      message.isCurrentUser ? 'text-right' : 'text-left'
+                    }`}
+                  >
+                    {message.isCurrentUser ? 'You' : 'Grok'}
+                  </div>
+                  <div className="text-gray-100 leading-relaxed">
+                    {message.message}
+                  </div>
+                  {!message.isCurrentUser && (
+                    <MessageActions messageId={message.id} />
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+      </div>
+
+      <div className="border-t border-gray-700">
+        <div className="max-w-4xl mx-auto p-4">
+          <ChatInput onSendMessage={handleSendMessage} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ChatInterface;

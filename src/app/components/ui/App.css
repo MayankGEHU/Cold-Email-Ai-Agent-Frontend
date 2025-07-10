@@ -5,10 +5,11 @@ body, html, #root {
 }
 
 .app {
-  background-color: rgb(141, 117, 230);
+  /* background-color: rgb(141, 117, 230); */
+  background-color: black;
   background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.151) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.151) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.151) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.151) 1px, transparent 1px);
   background-size: 104px 104px;
   min-height: 100vh;
   color: white;

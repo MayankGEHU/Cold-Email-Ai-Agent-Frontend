@@ -28,7 +28,7 @@
 .hero-title {
     font-family: 'Playfair Display', serif;
   font-size: 64px;
-  font-weight: 500;
+  font-weight: inherit;
   line-height: 1.2;
   margin-bottom: 24px;
 }
