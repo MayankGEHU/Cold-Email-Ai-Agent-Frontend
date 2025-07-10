@@ -1,0 +1,150 @@
+/* Existing styles remain unchanged... */
+.navbar {
+
+  padding: 16px 32px;
+  position: relative;
+  z-index: 10;
+}
+
+.navbar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo span {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.nav-center {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 10px 24px;
+  border-radius: 9999px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  color: white;
+  font-size: 14px;
+}
+
+.nav-links li {
+  cursor: pointer;
+}
+
+.dropdown {
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.search-icon {
+  font-size: 16px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.btn.faded {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.btn.faded:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn.white {
+  background-color: white;
+  color: #6b46c1;
+}
+
+.btn.white:hover {
+  background-color: #f3e8ff;
+}
+
+/* --- RESPONSIVE --- */
+.hamburger {
+  display: none;
+  background: none;
+  font-size: 24px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .nav-center {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin-top: 16px;
+  }
+
+  .nav-center.open {
+    display: flex;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 0;
+  }
+
+  .nav-buttons.desktop-only {
+    display: none;
+  }
+
+  .nav-buttons.mobile-only {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  .nav-buttons.mobile-only {
+    display: none;
+  }
+}

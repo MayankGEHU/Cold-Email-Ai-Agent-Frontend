@@ -1,0 +1,16 @@
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.app {
+  background-color: rgb(141, 117, 230);
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.151) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.151) 1px, transparent 1px);
+  background-size: 104px 104px;
+  min-height: 100vh;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
