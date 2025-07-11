@@ -10,6 +10,8 @@ import Footer from "./components/ui/Footer";
 import SignInPage from "./components/Auth/SignInPage";
 import Details from "./components/ui/Details";
 import DetailsRight from "./components/ui/DetailsRight";
+import AIFooter from "./components/ui/AIFooter";
+import EverythingInOnePlace from "./components/ui/EverythingInOnePlace";
 
 export default function Page() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -24,10 +26,11 @@ export default function Page() {
       {currentPage === "home" && (
         <>
           <HeroSection onTryNow={() => setCurrentPage("chat")} />
-            <Details/>
-            <DetailsRight/>
-          <Contact />
-          <Footer />
+            {/* <Details/> */}
+            <EverythingInOnePlace/>
+               <DetailsRight/>
+          {/* <Contact /> */}
+          <AIFooter />
         </>
       )}
 

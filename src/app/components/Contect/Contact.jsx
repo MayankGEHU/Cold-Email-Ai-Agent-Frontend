@@ -1,6 +1,6 @@
 import React from 'react';
-import { Menu } from 'lucide-react';
 import { Button } from '../ui/Button';
+import './Contact.css'; 
 
 const Contact = () => {
   const textStrokeStyle = {
@@ -9,17 +9,19 @@ const Contact = () => {
   };
 
   return (
-   <div
-  className="relative min-h-screen text-white overflow-hidden flex flex-col justify-center items-center"
-  style={{ backgroundColor: "#19191b" }}
->
+    <div
+      className="relative min-h-screen text-white overflow-hidden flex flex-col justify-center items-center"
+      style={{ backgroundColor: "#19191b" }}
+    >
 
-      <div className="w-full flex justify-center items-end pt-[10vh] pb-[4vh] pointer-events-none z-0">
-        <div
-          className="whitespace-nowrap text-[5rem] md:text-[8rem] lg:text-[12rem] font-black leading-none"
-          style={textStrokeStyle}
-        >
-          WORK WITH ME MORE WORK WITH ME MORE WORK WITH ME MORE
+      <div className="w-full overflow-hidden pointer-events-none z-0 pt-[10vh] pb-[4vh] marquee-container">
+        <div className="marquee-content scroll-left">
+          <div className="marquee-text" style={textStrokeStyle}>
+            WORK WITH ME MORE WORK WITH ME MORE WORK WITH ME MORE WORK WITH ME MORE
+          </div>
+          <div className="marquee-text" style={textStrokeStyle}>
+            WORK WITH ME MORE WORK WITH ME MORE WORK WITH ME MORE WORK WITH ME MORE
+          </div>
         </div>
       </div>
 
@@ -47,15 +49,16 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="w-full flex justify-center items-start pb-[10vh] pt-[4vh] pointer-events-none z-0">
-        <div
-          className="whitespace-nowrap text-[5rem] md:text-[8rem] lg:text-[12rem] font-black leading-none"
-          style={textStrokeStyle}
-        >
-          WORK WITH ME MORE WORK WITH ME MORE WORK WITH ME MORE
+      <div className="w-full overflow-hidden pointer-events-none z-0 pb-[10vh] pt-[4vh] marquee-container">
+        <div className="marquee-content scroll-right">
+          <div className="marquee-text" style={textStrokeStyle}>
+            WORK WITH ME MORE WORK WITH ME MORE WORK WITH ME MORE WORK WITH ME MORE
+          </div>
+          <div className="marquee-text" style={textStrokeStyle}>
+            WORK WITH ME MORE WORK WITH ME MORE WORK WITH ME MORE WORK WITH ME MORE
+          </div>
         </div>
       </div>
-
     </div>
   );
 };
