@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+
+.details-wrapper {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  padding: 0 5vw;
+  box-sizing: border-box;
+}
+
+.details-text {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 5vw, 3.5rem); 
+  font-weight: 700;
+  color: white;
+  line-height: 1.25;
+  margin: 0;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .details-wrapper {
+    min-height: 50vh;
+    padding: 0 6vw;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .details-text {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .details-wrapper {
+    min-height: 40vh;
+    padding: 0 4vw;
+  }
+
+  .details-text {
+    font-size: clamp(1.2rem, 7vw, 2rem);
+  }
+}

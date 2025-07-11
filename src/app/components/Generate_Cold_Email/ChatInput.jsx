@@ -20,7 +20,7 @@ const ChatInput = ({ onSendMessage }) => {
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="How can Grok help?"
+          placeholder="How can Cold Email Genius help?"
           className="bg-transparent border-0 text-lg placeholder-gray-400 focus:ring-0 focus:outline-none w-full mb-4"
         />
         
@@ -62,8 +62,8 @@ const ChatInput = ({ onSendMessage }) => {
               size="sm"
               className="text-gray-400 hover:text-gray-300"
             >
-              Grok 3
-              <ArrowUp className="h-3 w-3 ml-1 rotate-45" />
+              By Mayank Singh
+  
             </Button>
             
             <Button

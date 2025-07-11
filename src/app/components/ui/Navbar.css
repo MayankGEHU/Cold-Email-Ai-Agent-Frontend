@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap');
 
 .navbar {
-
   padding: 16px 32px;
-  position: relative;
+  position: fixed;         
+  top: 0;
+  left: 0;
+  width: 100%;            
   z-index: 10;
 }
 
@@ -26,13 +28,13 @@
 }
 
 .logo span {
-     font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', serif;
   font-weight: inherit;
   font-size: 20px;
 }
 
 .nav-center {
-  background-color: rgba(0, 0, 0, 0.1);
+
   padding: 10px 24px;
   border-radius: 9999px;
   display: flex;
@@ -97,7 +99,6 @@
   background-color: #f3e8ff;
 }
 
-/* --- RESPONSIVE --- */
 .hamburger {
   display: none;
   background: none;
@@ -107,7 +108,6 @@
   cursor: pointer;
 }
 
-/* Mobile styles */
 @media (max-width: 768px) {
   .nav-center {
     display: none;
@@ -144,9 +144,13 @@
   }
 }
 
-/* Desktop styles */
+
 @media (min-width: 769px) {
   .nav-buttons.mobile-only {
     display: none;
   }
+}
+
+body {
+  padding-top: 80px; 
 }

@@ -3,7 +3,7 @@
 import React from 'react';
 import './HeroSection.css';
 
-const HeroSection = ({ onTryNow }) => {
+const HeroSection = ({ onTryNow, onSignUp }) => {
   return (
     <section className="hero-container">
       <div className="ai-banner">
@@ -18,8 +18,12 @@ const HeroSection = ({ onTryNow }) => {
         personalization, and zero compromise. That’s ColdMail Genius.
       </p>
       <div className="hero-buttons">
-        <button className="btn filled" onClick={onTryNow}>Try Now</button>
-        <button className="btn outlined">Sign up free</button>
+        <button className="btn filled" onClick={onTryNow}>
+          Try Now
+        </button>
+        <button className="btn outlined" onClick={onSignUp}>
+          Sign up free
+        </button>
       </div>
     </section>
   );

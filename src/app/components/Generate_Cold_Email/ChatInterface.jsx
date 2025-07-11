@@ -15,6 +15,7 @@ import { Button } from '../ui/Button';
 const ChatInterface = () => {
   const [messages, setMessages] = useState([]);
   const [hasStartedChat, setHasStartedChat] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -25,12 +26,12 @@ const ChatInterface = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = (messageText) => {
+  const handleSendMessage = async (messageText) => {
     if (!hasStartedChat) {
       setHasStartedChat(true);
     }
 
-    const newMessage = {
+    const userMessage = {
       id: Date.now().toString(),
       message: messageText,
       sender: 'You',
@@ -42,25 +43,24 @@ const ChatInterface = () => {
       isCurrentUser: true,
     };
 
-    setMessages((prev) => [...prev, newMessage]);
+    setMessages((prev) => [...prev, userMessage]);
+    setIsLoading(true);
 
-    setTimeout(() => {
-      const responses = [
-        "Hey there! What's up?",
-        "That's really interesting! Let me help you with that.",
-        "I understand what you're asking. Here's what I think...",
-        "Great question! Let me break this down for you.",
-        "I can definitely help you with that. Here's my perspective...",
-        "That's a thoughtful question. Based on what you've shared...",
-      ];
+    try {
+      const res = await fetch('http://localhost:5000/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: messageText }),
+      });
 
-      const randomResponse =
-        responses[Math.floor(Math.random() * responses.length)];
+      const data = await res.json();
 
-      const responseMessage = {
+      const aiMessage = {
         id: (Date.now() + 1).toString(),
-        message: randomResponse,
-        sender: 'Grok',
+        message: data.email || "Sorry, I couldn't generate a response.",
+        sender: 'ColdMail AI',
         timestamp: new Date().toLocaleTimeString('en-US', {
           hour: 'numeric',
           minute: '2-digit',
@@ -69,8 +69,22 @@ const ChatInterface = () => {
         isCurrentUser: false,
       };
 
-      setMessages((prev) => [...prev, responseMessage]);
-    }, 1000 + Math.random() * 1000);
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (error) {
+      console.error('Error:', error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          message: '⚠️ Failed to connect to the AI backend.',
+          sender: 'System',
+          timestamp: new Date().toLocaleTimeString(),
+          isCurrentUser: false,
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const MessageActions = ({ messageId }) => (
@@ -127,9 +141,9 @@ const ChatInterface = () => {
                       message.isCurrentUser ? 'text-right' : 'text-left'
                     }`}
                   >
-                    {message.isCurrentUser ? 'You' : 'Grok'}
+                    {message.sender}
                   </div>
-                  <div className="text-gray-100 leading-relaxed">
+                  <div className="text-gray-100 leading-relaxed whitespace-pre-wrap">
                     {message.message}
                   </div>
                   {!message.isCurrentUser && (
@@ -139,6 +153,11 @@ const ChatInterface = () => {
               </div>
             </div>
           ))}
+
+          {isLoading && (
+            <div className="text-center text-gray-400">Generating email...</div>
+          )}
+
           <div ref={messagesEndRef} />
         </div>
       </div>
