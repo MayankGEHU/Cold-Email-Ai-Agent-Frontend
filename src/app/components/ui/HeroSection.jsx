@@ -3,7 +3,7 @@
 import React from 'react';
 import './HeroSection.css';
 
-const HeroSection = ({ onTryNow, onSignUp }) => {
+const HeroSection = ({ onTryNow}) => {
   return (
     <section className="hero-container">
       <div className="ai-banner">
@@ -21,7 +21,7 @@ const HeroSection = ({ onTryNow, onSignUp }) => {
         <button className="btn filled" onClick={onTryNow}>
           Try Now
         </button>
-        <button className="btn outlined" onClick={onSignUp}>
+        <button className="btn outlined">
           Sign up free
         </button>
       </div>
