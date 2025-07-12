@@ -1,41 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import HeroSection from "./components/ui/HeroSection";
 import Navbar from "./components/ui/Navbar";
-import ChatInterface from "./components/Generate_Cold_Email/ChatInterface";
 import "./components/ui/App.css";
-import Contact from "./components/Contect/Contact";
-import Footer from "./components/ui/Footer";
-import SignInPage from "./components/Auth/SignInPage";
-import Details from "./components/ui/Details";
-import DetailsRight from "./components/ui/DetailsRight";
 import AIFooter from "./components/ui/AIFooter";
 import EverythingInOnePlace from "./components/ui/EverythingInOnePlace";
+import KeynoteTalks from "./components/ui/KeynoteTalks";
 
 export default function Page() {
-  const [currentPage, setCurrentPage] = useState("home");
+  const router = useRouter();
 
   return (
     <div className="app">
       <Navbar
-        onHomeClick={() => setCurrentPage("home")}
-        onLoginClick={() => setCurrentPage("login")}
+        onHomeClick={() => router.push("/")}
+        onLoginClick={() => router.push("/login")}
       />
 
-      {currentPage === "home" && (
-        <>
-          <HeroSection onTryNow={() => setCurrentPage("chat")} />
-            {/* <Details/> */}
-            <EverythingInOnePlace/>
-               <DetailsRight/>
-          {/* <Contact /> */}
-          <AIFooter />
-        </>
-      )}
-
-      {currentPage === "login" && <SignInPage />}
-      {currentPage === "chat" && <ChatInterface />}
+      <HeroSection
+        onTryNow={() => router.push("/chat")}
+        onSignUp={() => router.push("/signup")}
+      />
+      <EverythingInOnePlace />
+      <KeynoteTalks />
+      <AIFooter />
     </div>
   );
 }

@@ -1,17 +1,20 @@
-// components/ui/Navbar.jsx
 "use client";
 
-import React, { useState } from "react";
+import Link from "next/link";
+import { useState } from "react";
 import "./Navbar.css";
+import "./App.css"
 
-const Navbar = ({ onHomeClick, onLoginClick }) => {
+export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <header className="navbar">
       <div className="navbar-content">
         <div className="logo">
-          <span>Cold Email</span>
+          <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
+            Cold Email Genius
+          </Link>
         </div>
 
         <button
@@ -23,37 +26,32 @@ const Navbar = ({ onHomeClick, onLoginClick }) => {
 
         <div className={`nav-center ${isMobileMenuOpen ? "open" : ""}`}>
           <ul className="nav-links">
-<li onClick={onHomeClick}>
-  <strong>Home</strong>
-</li>
-
             <li>
-              <strong>Another One</strong>{" "}
-              <span className="dropdown">▾</span>
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
+                <strong>Home</strong>
+              </Link>
             </li>
             <li>
-              <strong>Another One</strong>{" "}
-              <span className="dropdown">▾</span>
+              <strong>Another One</strong> <span className="dropdown">▾</span>
+            </li>
+            <li>
+              <strong>Another One</strong> <span className="dropdown">▾</span>
             </li>
           </ul>
 
           <div className="nav-buttons mobile-only">
-            <button className="btn faded" onClick={onLoginClick}>
-              Log in
-            </button>
-            <button className="btn faded">Sign up</button>
+<Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
+  <button className="btn faded">Log in</button>
+</Link>
           </div>
         </div>
 
         <div className="nav-buttons desktop-only">
-          <button className="btn faded" onClick={onLoginClick}>
-            Log in
-          </button>
-          <button className="btn faded">Sign up</button>
+          <Link href="/login">
+            <button className="btn faded">Log in</button>
+          </Link>
         </div>
       </div>
     </header>
   );
-};
-
-export default Navbar;
+}

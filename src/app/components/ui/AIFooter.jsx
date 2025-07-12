@@ -10,16 +10,16 @@ function AIFooter() {
 
         <div className="flex flex-col items-start gap-2 text-sm leading-none">
           <div className="w-6 h-6 flex items-center justify-center mb-4">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            {/* <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <rect x="0" y="0" width="24" height="24" fill="black" />
               <path d="M6 6H18V18H6V6ZM8 8V16H16V8H8Z" fill="#FBF9F4" />
-            </svg>
+            </svg> */}
           </div>
-          <a href="#" className="hover:underline">OUR WORK</a>
+          {/* <a href="#" className="hover:underline">OUR WORK</a>
           <a href="#" className="hover:underline">ABOUT US</a>
           <a href="#" className="hover:underline">REFORM NOVA</a>
           <a href="#" className="hover:underline">CONTACT US</a>
-          <a href="#" className="hover:underline">CAREERS</a>
+          <a href="#" className="hover:underline">CAREERS</a> */}
         </div>
 
         <div className="flex items-end justify-center">

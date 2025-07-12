@@ -9,7 +9,7 @@ import {
   Brain,
 } from 'lucide-react';
 
-const WelcomeScreen = ({ onSendMessage }) => {
+const WelcomeScreen = ({ onSendMessage, username }) => {
   const [message, setMessage] = useState('');
 
   const handleSubmit = (e) => {
@@ -26,11 +26,12 @@ const WelcomeScreen = ({ onSendMessage }) => {
 
   return (
     <div className="h-[80vh] bg-transparent text-gray-100 flex flex-col items-center justify-end p-4 sm:p-6 lg:p-4">
-
       <div className="w-full max-w-sm sm:max-w-2xl lg:max-w-4xl mx-auto">
         <div className="text-center mb-8 sm:mb-12">
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-7 sm:mb-6">
-            <h1 className="text-3xl sm:text-4xl font-bold text-white">Mayank Singh</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold text-white">
+              {username ? username : "Guest"}
+            </h1>
           </div>
         </div>
 
@@ -84,7 +85,7 @@ const WelcomeScreen = ({ onSendMessage }) => {
                     size="sm"
                     className="text-gray-400 hover:text-gray-300 text-xs sm:text-sm"
                   >
-                    By Mayank Singh
+                    By ColdMail AI
                   </Button>
 
                   <Button

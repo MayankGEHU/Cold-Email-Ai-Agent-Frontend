@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import WelcomeScreen from './WelcomeScreen';
+import LoginModal from '../LoginModal';
 import {
   RotateCcw,
   Copy,
@@ -16,6 +17,11 @@ const ChatInterface = () => {
   const [messages, setMessages] = useState([]);
   const [hasStartedChat, setHasStartedChat] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [anonymousUsageCount, setAnonymousUsageCount] = useState(0);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const [user, setUser] = useState(null);
+
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -27,6 +33,11 @@ const ChatInterface = () => {
   }, [messages]);
 
   const handleSendMessage = async (messageText) => {
+    if (!user && anonymousUsageCount >= 5) {
+      setShowLoginModal(true);
+      return;
+    }
+
     if (!hasStartedChat) {
       setHasStartedChat(true);
     }
@@ -34,7 +45,7 @@ const ChatInterface = () => {
     const userMessage = {
       id: Date.now().toString(),
       message: messageText,
-      sender: 'You',
+      sender: user?.name || 'Guest',
       timestamp: new Date().toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: '2-digit',
@@ -45,6 +56,10 @@ const ChatInterface = () => {
 
     setMessages((prev) => [...prev, userMessage]);
     setIsLoading(true);
+
+    if (!user) {
+      setAnonymousUsageCount((prev) => prev + 1);
+    }
 
     try {
       const res = await fetch('http://localhost:5000/api/generate', {
@@ -87,6 +102,12 @@ const ChatInterface = () => {
     }
   };
 
+  const handleLoginSuccess = (userInfo) => {
+    setUser(userInfo);
+    setShowLoginModal(false);
+    setAnonymousUsageCount(0);
+  };
+
   const MessageActions = ({ messageId }) => (
     <div className="flex items-center gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
       <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-gray-400 hover:text-gray-300">
@@ -112,7 +133,20 @@ const ChatInterface = () => {
   );
 
   if (!hasStartedChat) {
-    return <WelcomeScreen onSendMessage={handleSendMessage} />;
+    return (
+      <>
+        <WelcomeScreen
+          onSendMessage={handleSendMessage}
+          username={user?.name}
+        />
+        {showLoginModal && (
+          <LoginModal
+            onClose={() => setShowLoginModal(false)}
+            onLoginSuccess={handleLoginSuccess}
+          />
+        )}
+      </>
+    );
   }
 
   return (
@@ -167,6 +201,13 @@ const ChatInterface = () => {
           <ChatInput onSendMessage={handleSendMessage} />
         </div>
       </div>
+
+      {showLoginModal && (
+        <LoginModal
+          onClose={() => setShowLoginModal(false)}
+          onLoginSuccess={handleLoginSuccess}
+        />
+      )}
     </div>
   );
 };
