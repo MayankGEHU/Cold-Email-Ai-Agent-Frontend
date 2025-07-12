@@ -20,7 +20,6 @@ let googleProvider;
 if (typeof window !== "undefined") {
   app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-  // Optional: safely check if analytics is supported
   isSupported().then((yes) => {
     if (yes) {
       analytics = getAnalytics(app);
