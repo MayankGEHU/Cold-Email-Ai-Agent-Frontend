@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAnalytics, isSupported } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDM3N4iTGn9sFH35SwnLwxLmPBzk1ZktVc",
@@ -12,8 +12,23 @@ const firebaseConfig = {
   measurementId: "G-4PT4VN7SJ3"
 };
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+let app;
+let analytics;
+let auth;
+let googleProvider;
 
-export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
+if (typeof window !== "undefined") {
+  app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+
+  // Optional: safely check if analytics is supported
+  isSupported().then((yes) => {
+    if (yes) {
+      analytics = getAnalytics(app);
+    }
+  });
+
+  auth = getAuth(app);
+  googleProvider = new GoogleAuthProvider();
+}
+
+export { auth, googleProvider };
