@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { getAnalytics, isSupported } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics"; // Optional
 
 const firebaseConfig = {
   apiKey: "AIzaSyDM3N4iTGn9sFH35SwnLwxLmPBzk1ZktVc",
@@ -9,25 +9,21 @@ const firebaseConfig = {
   storageBucket: "coldmail-genius.appspot.com",
   messagingSenderId: "310927153099",
   appId: "1:310927153099:web:2c34989d666ef02ed4884e",
-  measurementId: "G-4PT4VN7SJ3"
+  measurementId: "G-4PT4VN7SJ3",
 };
 
 let app;
-let analytics;
 let auth;
 let googleProvider;
 
 if (typeof window !== "undefined") {
   app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-
-  isSupported().then((yes) => {
-    if (yes) {
-      analytics = getAnalytics(app);
-    }
-  });
-
   auth = getAuth(app);
   googleProvider = new GoogleAuthProvider();
+  // Optionally enable analytics:
+  // if ('measurementId' in firebaseConfig) {
+  //   const analytics = getAnalytics(app);
+  // }
 }
 
 export { auth, googleProvider };
