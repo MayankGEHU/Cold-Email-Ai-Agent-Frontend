@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
+// Only import getAnalytics if you actually use Analytics in the browser.
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -14,7 +15,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-// Only initialize analytics in the browser
+// Only initialize analytics in the browser environment
 let analytics;
 if (typeof window !== "undefined") {
   analytics = getAnalytics(app);
@@ -22,4 +23,5 @@ if (typeof window !== "undefined") {
 
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
+// Export analytics if needed, otherwise remove this line
 export { app, analytics };
