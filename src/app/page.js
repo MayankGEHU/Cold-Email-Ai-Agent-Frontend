@@ -20,7 +20,6 @@ export default function Page() {
 
       <HeroSection
         onTryNow={() => router.push("/chat")}
-        onSignUp={() => router.push("/signup")}
       />
       <EverythingInOnePlace />
       <KeynoteTalks />
